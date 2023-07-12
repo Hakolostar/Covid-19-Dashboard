@@ -41,7 +41,9 @@ fetch('https://api.covidtracking.com/v1/us/daily.json')
       const selectedData = data.find(entry => entry.date.toString() === selectedDate);
       if (selectedData) {
         const chartData = {
+          positive: selectedData.positive,
           positiveIncrease: selectedData.positiveIncrease,
+          negative: selectedData.negative,
           negativeIncrease: selectedData.negativeIncrease,
           deathIncrease: selectedData.deathIncrease,
           hospitalizedCumulative: selectedData.hospitalizedCumulative,
@@ -112,8 +114,8 @@ fetch('https://api.covidtracking.com/v1/us/daily.json')
           {
             name: 'USA',
             data: [
-              { name: 'Positive Cases', y: data.positiveIncrease },
-              { name: 'Negative Cases', y: data.negativeIncrease },
+              { name: 'Positive Cases', y: data.positive},
+              { name: 'Negative Cases', y: data.negative},
               { name: 'Hospitalized', y: data.hospitalized }, 
               { name: 'Deaths', y: data.death } 
             ]
@@ -129,9 +131,9 @@ const negativeIncreaseElement = document.getElementById('negativeIncrease');
 const deathElement = document.getElementById('death');
 const hospitalizedElement = document.getElementById('hospitalized');
 
-positiveElement.textContent = formatNumber(data.positiveIncrease);
+positiveElement.textContent = formatNumber(data.positive);
 positiveIncreaseElement.textContent ='+'+ formatNumber(data.positiveIncrease);
-negativeElement.textContent = formatNumber(data.negativeIncrease);
+negativeElement.textContent = formatNumber(data.negative);
 negativeIncreaseElement.textContent ='-'+ formatNumber(data.negativeIncrease);
 deathElement.textContent = formatNumber(data.death);
 hospitalizedElement.textContent = formatNumber(data.hospitalized);
@@ -237,7 +239,9 @@ hospitalizedElement.textContent = formatNumber(data.hospitalized);
     const defaultSelectedData = data.find(entry => entry.date.toString() === defaultSelectedDate);
     if (defaultSelectedData) {
       const defaultChartData = {
+        positive: defaultSelectedData.positive,
         positiveIncrease: defaultSelectedData.positiveIncrease,
+        negative: defaultSelectedData.negative,
         negativeIncrease: defaultSelectedData.negativeIncrease,
         deathIncrease: defaultSelectedData.deathIncrease,
         hospitalizedCumulative: defaultSelectedData.hospitalizedCumulative,
